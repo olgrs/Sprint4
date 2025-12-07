@@ -1,5 +1,6 @@
 import pytest
 from main import BooksCollector
+from test_data import BOOKS_FANTASTIC_AND_SCARY
 
 
 @pytest.fixture
@@ -8,11 +9,10 @@ def collector():
 
 
 @pytest.fixture
-def add_two_book_with_genre(collector):
-    collector.add_new_book('Мир')
-    collector.add_new_book('Сияние')
-    collector.set_book_genre('Мир', 'Фантастика')
-    collector.set_book_genre('Сияние', 'Ужасы')
+def add_two_books_fantastic_and_scary(collector):
+    for title, genre in BOOKS_FANTASTIC_AND_SCARY.items():
+        collector.add_new_book(title)
+        collector.set_book_genre(title, genre)
     return collector
 
 

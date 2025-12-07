@@ -1,4 +1,5 @@
 import pytest
+from test_data import BOOKS_FANTASTIC_AND_SCARY
 
 
 class TestBooksCollector:
@@ -53,28 +54,35 @@ class TestBooksCollector:
     def test_get_books_with_specific_genre_list(
             self,
             collector,
-            add_two_book_with_genre
+            add_two_books_fantastic_and_scary
             ):
+        expected = [
+            title
+            for title, genre in BOOKS_FANTASTIC_AND_SCARY.items()
+            if genre == 'Фантастика'
+        ]
         result = collector.get_books_with_specific_genre('Фантастика')
-        assert result == ['Мир']
+        assert result == expected
 
     def test_get_books_genre_full_dict(
             self,
             collector,
-            add_two_book_with_genre
+            add_two_books_fantastic_and_scary
             ):
-        assert collector.get_books_genre() == {
-            'Мир': 'Фантастика',
-            'Сияние': 'Ужасы'
-            }
+        assert collector.get_books_genre() == BOOKS_FANTASTIC_AND_SCARY
 
     def test_get_books_for_children_filter_genre_age(
             self,
             collector,
-            add_two_book_with_genre
+            add_two_books_fantastic_and_scary
             ):
+        expected = [
+            title
+            for title, genre in BOOKS_FANTASTIC_AND_SCARY.items()
+            if genre not in collector.genre_age_rating
+        ]
         result = collector.get_books_for_children()
-        assert result == ['Мир']
+        assert result == expected
 
     def test_add_book_in_favorites_add_book(
             self,
