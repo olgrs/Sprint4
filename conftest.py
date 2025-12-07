@@ -1,6 +1,6 @@
 import pytest
 from main import BooksCollector
-from test_data import BOOKS_FANTASTIC_AND_SCARY
+from test_data import FAVORITE_BOOK, BOOKS_FANTASTIC_AND_SCARY
 
 
 @pytest.fixture
@@ -17,7 +17,6 @@ def add_two_books_fantastic_and_scary(collector):
 
 
 @pytest.fixture
-def book_in_favorites(collector):
-    collector.add_new_book('Хрустальный горизонт')
-    collector.add_book_in_favorites('Хрустальный горизонт')
+def add_favorite_book(collector):
+    collector.add_new_book(FAVORITE_BOOK)
     return collector

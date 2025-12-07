@@ -1,5 +1,5 @@
 import pytest
-from test_data import BOOKS_FANTASTIC_AND_SCARY
+from test_data import FAVORITE_BOOK, BOOKS_FANTASTIC_AND_SCARY
 
 
 class TestBooksCollector:
@@ -87,31 +87,33 @@ class TestBooksCollector:
     def test_add_book_in_favorites_add_book(
             self,
             collector,
-            book_in_favorites
+            add_favorite_book
             ):
-        assert collector.favorites == ['Хрустальный горизонт']
+        collector.add_book_in_favorites(FAVORITE_BOOK)
+        assert collector.favorites == [FAVORITE_BOOK]
 
     def test_add_book_in_favorites_not_add_same_book(
             self,
             collector,
-            book_in_favorites
+            add_favorite_book
             ):
-        collector.add_book_in_favorites('Хрустальный горизонт')
-        assert collector.favorites == ['Хрустальный горизонт']
+        collector.add_book_in_favorites(FAVORITE_BOOK)
+        collector.add_book_in_favorites(FAVORITE_BOOK)
+        assert collector.favorites == [FAVORITE_BOOK]
 
     def test_delete_book_from_favorites_one_book_deleted(
             self,
             collector,
-            book_in_favorites
+            add_favorite_book
             ):
-        collector.delete_book_from_favorites('Хрустальный горизонт')
+        collector.add_book_in_favorites(FAVORITE_BOOK)
+        collector.delete_book_from_favorites(FAVORITE_BOOK)
         assert collector.favorites == []
 
     def test_get_list_of_favorites_books_return_list(
             self,
             collector,
-            book_in_favorites
+            add_favorite_book
             ):
-        assert collector.get_list_of_favorites_books() == [
-            'Хрустальный горизонт'
-            ]
+        collector.add_book_in_favorites(FAVORITE_BOOK)
+        assert collector.get_list_of_favorites_books() == [FAVORITE_BOOK]
