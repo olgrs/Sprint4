@@ -54,15 +54,13 @@ class TestBooksCollector:
     def test_get_books_with_specific_genre_list(
             self,
             collector,
-            add_two_books_fantastic_and_scary
             ):
-        expected = [
-            title
-            for title, genre in BOOKS_FANTASTIC_AND_SCARY.items()
-            if genre == 'Фантастика'
-        ]
+        collector.add_new_book('Мир')
+        collector.set_book_genre('Мир', 'Фантастика')
+        collector.add_new_book('Сияние')
+        collector.set_book_genre('Сияние', 'Ужасы')
         result = collector.get_books_with_specific_genre('Фантастика')
-        assert result == expected
+        assert result == ['Мир']
 
     def test_get_books_genre_full_dict(
             self,
@@ -71,18 +69,13 @@ class TestBooksCollector:
             ):
         assert collector.get_books_genre() == BOOKS_FANTASTIC_AND_SCARY
 
-    def test_get_books_for_children_filter_genre_age(
-            self,
-            collector,
-            add_two_books_fantastic_and_scary
-            ):
-        expected = [
-            title
-            for title, genre in BOOKS_FANTASTIC_AND_SCARY.items()
-            if genre not in collector.genre_age_rating
-        ]
+    def test_get_books_for_children_filter_genre_age(self, collector):
+        collector.add_new_book('Мир')
+        collector.set_book_genre('Мир', 'Фантастика')
+        collector.add_new_book('Сияние')
+        collector.set_book_genre('Сияние', 'Ужасы')
         result = collector.get_books_for_children()
-        assert result == expected
+        assert result == ['Мир']
 
     def test_add_book_in_favorites_add_book(
             self,
